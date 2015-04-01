@@ -1,5 +1,5 @@
 /*************************************************************************
-  > File Name: flowAsyTwistATLAS.h
+  > File Name: flowAsyTwist.h
  ************************************************************************/
 #include <iostream>
 #include <string>
@@ -46,10 +46,10 @@ typedef vector<EVENT_PTR>  evt1; //push back 3 events
 typedef vector<evt1> evt2; // 200 zbin
 typedef vector<evt2> evt3; //NCENT
 
-class flowAsyTwistATLAS{
+class flowAsyTwist{
 
     public:
-        flowAsyTwistATLAS();
+        flowAsyTwist();
 
         string filelist;
         string outfile;
@@ -60,12 +60,13 @@ class flowAsyTwistATLAS{
         int calib; //0 for observed, 1 for recentered, 2 for recentered+flattening
         int Zbin_Size;
         int perpartQ;
+        //int addstat;
 
         void Init_histos();
         void Save_histos();
         void run();
         bool FillForeground(EVENT_PTR evt);
-        bool FillBackground(EVENT_PTR evt0,EVENT_PTR evt1,EVENT_PTR evt2,EVENT_PTR evt3);
+        bool FillBackground(EVENT_PTR evt0,EVENT_PTR evt1);
         int get_Q_complex();
 
         int get_centbin(float cent);
@@ -105,30 +106,15 @@ class flowAsyTwistATLAS{
         TComplex q_Trk[3][NTYPE][NDET_TRK][NHAR];
         TComplex q_Cal[3][NDET_CAL][NHAR];
 
-   
-        TProfile* hfg_4q_trk [NTYPE][NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hfg_4q0_trk[NTYPE][NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hfg_4q1_trk[NTYPE][NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
+        TProfile* hfg_cmsTrk_0[NTYPE][NCENT][REF_FCAL][NHAR][4];  //numerator
+        TProfile* hfg_cmsTrk_1[NTYPE][NCENT][REF_FCAL][NHAR][4];  //denominator
+        TProfile* hbg_cmsTrk_0[NTYPE][NCENT][REF_FCAL][NHAR][4];  //numerator
+        TProfile* hbg_cmsTrk_1[NTYPE][NCENT][REF_FCAL][NHAR][4];  //denominator
 
-        TProfile* hfg_4q_cal [NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hfg_4q0_cal[NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hfg_4q1_cal[NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-
-        TProfile* hfg_ref[NCENT][NHAR][2];
-        TProfile* hfg_det_trk[NTYPE][NCENT][NHAR][2];
-        TProfile* hfg_det_cal[NCENT][NHAR][2];
-
-        TProfile* hbg_4q_trk [NTYPE][NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hbg_4q0_trk[NTYPE][NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hbg_4q1_trk[NTYPE][NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-
-        TProfile* hbg_4q_cal [NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hbg_4q0_cal[NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-        TProfile* hbg_4q1_cal[NCENT][REF_FCAL][NHAR][2]; //0 is real, 1 is imaginary part
-
-        TProfile* hbg_ref[NCENT][NHAR][2];
-        TProfile* hbg_det_trk[NTYPE][NCENT][NHAR][2];
-        TProfile* hbg_det_cal[NCENT][NHAR][2];
+        TProfile* hfg_cmsCal_0[NCENT][REF_FCAL][NHAR][4];  //numerator
+        TProfile* hfg_cmsCal_1[NCENT][REF_FCAL][NHAR][4];  //denominator
+        TProfile* hbg_cmsCal_0[NCENT][REF_FCAL][NHAR][4];  //numerator
+        TProfile* hbg_cmsCal_1[NCENT][REF_FCAL][NHAR][4];  //denominator
 
         int bad1;
         int bad2[NDET_CAL];

@@ -15,287 +15,8 @@ flowAsyTwistATLAS::flowAsyTwistATLAS():
         calib = 2;
         perpartQ = 0;
         nevts = 40000;
-        addstat=0;
+        //addstat=0;
     }   
-
-//general rule, det0 for Cal, det1 for Trk 
-void flowAsyTwistATLAS::Init_histos(){
-
-    fout = new TFile(outfile.c_str(), "recreate");
-    char name[200];
-/*
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hfg_4q_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hfg_4q[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hfg_4q[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hfg_4q0_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hfg_4q0[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hfg_4q0[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hfg_4q1_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hfg_4q1[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hfg_4q1[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-
-    for(int det0=0; det0<REF_FCAL; det0++){
-        for(int har=0; har<NHAR; har++){
-            for(int re=0; re<2; re++){
-                sprintf(name, "hfg_ref_cal_%d_har_%d_re_%d", det0, har, re);
-                hfg_ref[det0][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                hfg_ref[det0][har][re] -> Sumw2();
-            }
-        }
-    }
-
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det1=0; det1<HALF_TRK; det1++){
-            for(int har=0; har<NHAR; har++){
-                for(int re=0; re<2; re++){
-                    sprintf(name, "hfg_det_tp_%d_det_%d_har_%d_re_%d", tp, det1, har, re);
-                    hfg_det[tp][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                    hfg_det[tp][det1][har][re]->Sumw2();
-                }
-            }
-        }
-    }
-*/
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hfg_cms_0_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hfg_cms_0[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hfg_cms_0[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hfg_cms_1_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hfg_cms_1[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hfg_cms_1[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-
-/*
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hbg_4q_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hbg_4q[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hbg_4q[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hbg_4q0_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hbg_4q0[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hbg_4q0[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hbg_4q1_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hbg_4q1[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hbg_4q1[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-
-    for(int det0=0; det0<REF_FCAL; det0++){
-        for(int har=0; har<NHAR; har++){
-            for(int re=0; re<2; re++){
-                sprintf(name, "hbg_ref_cal_%d_har_%d_re_%d", det0, har, re);
-                hbg_ref[det0][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                hbg_ref[det0][har][re] -> Sumw2();
-            }
-        }
-    }
-
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det1=0; det1<HALF_TRK; det1++){
-            for(int har=0; har<NHAR; har++){
-                for(int re=0; re<2; re++){
-                    sprintf(name, "hbg_det_tp_%d_det_%d_har_%d_re_%d", tp, det1, har, re);
-                    hbg_det[tp][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                    hbg_det[tp][det1][har][re]->Sumw2();
-                }
-            }
-        }
-    }
-*/
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hbg_cms_0_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hbg_cms_0[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hbg_cms_0[tp][det0][det1][har][re] -> Sumw2();
-                    }
-                }
-            }
-        }
-    }
-
-    for(int tp=0; tp<NTYPE; tp++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int har=0; har<NHAR; har++){
-                    for(int re=0; re<2; re++){
-                        sprintf(name, "hbg_cms_1_tp_%d_cal_%d_inn_%d_har_%d_re_%d", tp, det0, det1, har, re);
-                        hbg_cms_1[tp][det0][det1][har][re] = new TProfile(name, name, NCENT, 0-0.5, NCENT-0.5);
-                        hbg_cms_1[tp][det0][det1][har][re] -> Sumw2();
-
-                    }
-                }
-            }
-        }
-    }
-
-    sprintf(name, "hbad1");
-    hbad1 = new TH1D(name, name, 100, 0-0.5, 100-0.5);
-    hbad1->Sumw2();
-
-    for(int det=0; det<NDET_CAL; det++){
-        sprintf(name,"hbad2_det%d", det);
-        hbad2[det] = new TH1D(name, name, 100, 0-0.5, 100-0.5);
-        hbad2[det]->Sumw2();
-    }
-
-    for(int det=0; det<NDET_CAL; det++){
-        sprintf(name,"hbad2Cal_det%d", det);
-        hbad2Cal[det] = new TH1D(name, name, 50, -100, 0);
-        hbad2Cal[det]->Sumw2();
-    }
-
-    for(int ic=0; ic<NCENT; ic++){
-        sprintf(name, "track_check_ic_%d",ic);
-        track_check[ic] = new TH1D(name, name, 500, 0, 4000);
-        track_check[ic] ->Sumw2();
-    }
-
-    for(int ic=0; ic<NCENT; ic++){
-        sprintf(name, "trackEt_check_ic_%d",ic);
-        trackEt_check[ic] = new TH2D(name, name, 40, 0, 20, 50, 0, 5);
-        trackEt_check[ic] ->Sumw2();
-    }
-
-
-    hcentbin = new TH1D("hcentbin", "hcentbin", NCENT, 0-0.5, NCENT-0.5);
-    hcentbin ->Sumw2();
-    hcentrality = new TH1D("hcentrality", "hcentrality", 100, 0, 100);
-    hcentrality ->Sumw2();
-
-    for(int ic=0; ic<NCENT; ic++){
-        for(int det1=0; det1<HALF_TRK; det1++){
-            for(int ih=0; ih<NHAR; ih++){
-                sprintf(name, "hq_trk_ic%d_det%d_ih%d",ic, det1, ih);
-                hq_trk[ic][det1][ih] = new TH1D(name, name, 200, 0, 100);
-                hq_trk[ic][det1][ih] ->Sumw2();
-            }
-        }
-    }
-
-    for(int ic=0; ic<NCENT; ic++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int ih=0; ih<NHAR; ih++){
-                sprintf(name, "hq_cal_ic%d_det%d_ih%d", ic, det0, ih);
-                hq_cal[ic][det0][ih] = new TH1D(name, name, 200, 0, 100);
-                hq_cal[ic][det0][ih] ->Sumw2();
-            }
-        }
-    }
-
-for(int ic=0; ic<NCENT; ic++){
-        for(int det1=0; det1<HALF_TRK; det1++){
-            for(int ih=0; ih<NHAR; ih++){
-                sprintf(name, "hpsi_trk_ic%d_det%d_ih%d",ic, det1, ih);
-                hpsi_trk[ic][det1][ih] = new TH1D(name, name, 100, -PI, PI);
-                hpsi_trk[ic][det1][ih] ->Sumw2();
-            }
-        }
-    }
-
-    for(int ic=0; ic<NCENT; ic++){
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int ih=0; ih<NHAR; ih++){
-                sprintf(name, "hpsi_cal_ic%d_det%d_ih%d", ic, det0, ih);
-                hpsi_cal[ic][det0][ih] = new TH1D(name, name, 100, -PI, PI);
-                hpsi_cal[ic][det0][ih] ->Sumw2();
-            }
-        }
-    }
-
-    for(int ic=0; ic<NCENT; ic++){
-        sprintf(name, "hvtx_z_ic%d", ic);
-        hvtx_z[ic] = new TH1D(name, name, 200, -100, 100);
-        hvtx_z[ic] ->Sumw2();
-    }
-
-    for(int ic=0; ic<NCENT; ic++){
-        sprintf(name, "hvtx_zbin_ic%d", ic);
-        hvtx_zbin[ic] = new TH1D(name, name, 200,0, 100);
-        hvtx_zbin[ic] ->Sumw2();
-    }
-
-    cout<<"Finish Initializing histograms"<<endl;
-}
 
 void flowAsyTwistATLAS::Save_histos(){
     fout->Write();
@@ -382,7 +103,7 @@ void flowAsyTwistATLAS::run(){
     myChain->SetBranchAddress("Centrality",  &Centrality );
     myChain->SetBranchAddress("Fcal_Et_p",  &Fcal_Et_p);
     myChain->SetBranchAddress("Fcal_Et_n",  &Fcal_Et_n);
-//    myChain->SetBranchAddress("vx_n",  &vx_n);
+    //    myChain->SetBranchAddress("vx_n",  &vx_n);
     myChain->SetBranchAddress("vx_z",  &vx_z);
     myChain->SetBranchAddress("trk_nQ",  &trk_nQ);
     myChain->SetBranchAddress("trk_n", &trk_n);
@@ -404,11 +125,13 @@ void flowAsyTwistATLAS::run(){
     if(perpartQ==0) {cout<<"Q scalar product way"<<endl;}
     if(perpartQ==1) {cout<<"Q per particle flow way"<<endl;}
     cout<<"Using Zbin_Size "<<Zbin_Size<<endl;
-    cout<<"Add more stat? "<<addstat<<endl;
+    //cout<<"Add more stat? "<<addstat<<endl;
     cout<<"Want to run "<<nevts<<endl;
 
     int Nevents = myChain->GetEntries();
     cout<<"We are reading Nevents "<<Nevents<<endl;
+
+
     for(int iev=0; iev<Nevents; iev++){
         myChain->GetEntry(iev);
         bad1 = 0;
@@ -450,28 +173,6 @@ void flowAsyTwistATLAS::run(){
         hcentbin ->Fill(event0->getCent());
         event0->setqTrx(q_Trk);
         event0->setqCal(q_Cal);
-        //******test fill***************
-        /*
-           TComplex Q_Trk[NTYPE][NDET_TRK][NHAR];
-           TComplex Q_Cal[NDET_CAL][NHAR];
-           for(int tp=0; tp<NTYPE; tp++){
-           for(int det=0; det<NDET_TRK; det++){
-           for(int har=0; har<NHAR; har++){
-           Q_Trk[tp][det][har] = event0->getqTrk(calib, tp, det, har);
-           if( Q_Trk[tp][det][har].Im() != q_Trk[calib][tp][det][har].Im() ) cout<<"911 911 trk im "<<tp<<" "<<det<<" "<<har<<endl;
-           if( Q_Trk[tp][det][har].Re() != q_Trk[calib][tp][det][har].Re() ) cout<<"911 911 trk re "<<tp<<" "<<det<<" "<<har<<endl;
-           }
-           }
-           }
-           for(int det=0; det<NDET_CAL; det++){
-           for(int har=0; har<NHAR; har++){
-           Q_Cal[det][har] = event0->getqCal(calib, det, har);
-           if( Q_Cal[det][har].Im() != q_Cal[calib][det][har].Im() ) cout<<"911 911 cal im "<<det<<" "<<har<<endl;
-           if( Q_Cal[det][har].Re() != q_Cal[calib][det][har].Re() ) cout<<"911 911 cal re "<<det<<" "<<har<<endl;
-           }
-           }
-*/
-        //end of test fill**************        
 
         bool fsame = FillForeground( event0 );
         if(fsame != true) {cout<<"Come on, Wrong FillForeground!!!"<<endl;  delete event0; continue;}
@@ -480,15 +181,14 @@ void flowAsyTwistATLAS::run(){
         if(KiddiePool<3){
             EventPool.at(centbin).at(zbin).push_back( event0 );
         }else if( KiddiePool >= 3){
-            bool mix =  FillBackground(event0, EventPool.at(centbin).at(zbin).at(1), EventPool.at(centbin).at(zbin).at(1), EventPool.at(centbin).at(zbin).at(2) );
+            bool mix =  FillBackground(event0, EventPool.at(centbin).at(zbin).at(0), EventPool.at(centbin).at(zbin).at(1), EventPool.at(centbin).at(zbin).at(2) );
             delete EventPool.at(centbin).at(zbin).at(0);
             EventPool.at(centbin).at(zbin).at(0) = 0;
             EventPool.at(centbin).at(zbin).erase( EventPool.at(centbin).at(zbin).begin() );
             EventPool.at(centbin).at(zbin).push_back( event0 );
             if(mix != true) {cout<<"Come on, Wrong Background!!!"<<endl;}
         }
-       //  delete event0;
-
+        //  delete event0;
     }//end of event loop
 }
 
@@ -532,7 +232,7 @@ bool flowAsyTwistATLAS::FillForeground( EVENT_PTR evt ){
         }
     }
 
-  for(int itrk=0; itrk<HALF_TRK; itrk++){
+    for(int itrk=0; itrk<HALF_TRK; itrk++){
         int det1 = Trk_For[itrk];
         for(int ih=0; ih<NHAR; ih++){
             hpsi_trk[cenbin][itrk][ih] ->Fill(Q_Trk[0][det1][ih].Theta());
@@ -547,85 +247,84 @@ bool flowAsyTwistATLAS::FillForeground( EVENT_PTR evt ){
     }
 
     if(countzero0>NTYPE*3 || countzero1>6){
-      cout<<"Reallly  badddd!!!"<<evt->getID()<< " "<< endl;  
-      return false;
+        cout<<"Reallly  badddd!!!"<<evt->getID()<< " "<< endl;  
+        return false;
     } 
 
     TComplex q[25];
     for(int j=0; j<25; j++) q[j] = TComplex(0.0, 0.0); 
     for(int har=0; har<NHAR; har++){
         //calc <q(ref)q*(ref)>  
-/*
-        for(int det0=0; det0<REF_FCAL; det0++){
-            q[0] = Q_Cal[ Ref_For[det0]][har];
-            q[1] = Q_Cal[ Ref_Bac[det0]][har];
-            q[3] = q[0]*TComplex::Conjugate(q[1]);
-            hfg_ref[det0][har][0] ->Fill( cenbin, q[3].Re());
-            hfg_ref[det0][har][1] ->Fill( cenbin, q[3].Im());
+
+        for(int ref=0; ref<REF_FCAL; ref++){
+            q[0] = Q_Cal[ Ref_For[ref]][har]; //+ ref
+            q[1] = Q_Cal[ Ref_Bac[ref]][har]; //- ref
+            q[2] = q[0]*TComplex::Conjugate(q[1]);
+            hfg_ref[cenbin][har][0] ->Fill( ref, q[2].Re());
+            hfg_ref[cenbin][har][1] ->Fill( ref, q[2].Im());
         }   
         //calc <q(eta)q*(eta)>
         for(int tp=0; tp<NTYPE; tp++){
             for(int det1=0; det1<HALF_TRK; det1++){
-                q[4] = Q_Trk[tp][Trk_For[det1]][har];
-                q[5] = Q_Trk[tp][Trk_Bac[det1]][har];
-                q[6] = q[4]*TComplex::Conjugate(q[5]);
-                hfg_det[tp][det1][har][0] ->Fill( cenbin, q[6].Re());
-                hfg_det[tp][det1][har][1] ->Fill( cenbin, q[6].Im());
+                q[3] = Q_Trk[tp][Trk_For[det1]][har]; //+eta
+                q[4] = Q_Trk[tp][Trk_Bac[det1]][har]; //-eta
+                q[5] = q[4]*TComplex::Conjugate(q[5]);
+                hfg_det_trk[tp][cenbin][har][0] ->Fill( det1, q[5].Re());
+                hfg_det_trk[tp][cenbin][har][1] ->Fill( det1, q[5].Im());
             }   
         }
+
+        for(int det1=0; det1<HALF_CAL; det1++){
+            q[6] = Q_Cal[Cal_For[det1]][har];
+            q[7] = Q_Cal[Cal_Bac[det1]][har];
+            q[8] = q[6]*TComplex::Conjugate(q[7]);
+            hfg_det_cal[cenbin][har][0] ->Fill(det1, q[8].Re());
+            hfg_det_cal[cenbin][har][1] ->Fill(det1, q[8].Im());
+        }
+
         //calc 4 q correlator
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int tp=0; tp<NTYPE; tp++){ 
-                    q[7]  = Q_Trk[tp][Trk_For[det1]][har];  //+eta
-                    q[8]  = Q_Trk[tp][Trk_Bac[det1]][har]; // -eta
-                    q[9]  = Q_Cal[Ref_For[det0]][har];    //+ref
-                    q[10] = Q_Cal[Ref_Bac[det0]][har];    //-ref
+        for(int tp=0; tp<NTYPE; tp++){ 
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int det1=0; det1<HALF_TRK; det1++){
+                    q[8]   = Q_Trk[tp][Trk_For[det1]][har];  //+eta
+                    q[9]   = Q_Trk[tp][Trk_Bac[det1]][har]; // -eta
+                    q[10]  = Q_Cal[Ref_For[ref]][har];    //+ref
+                    q[11]  = Q_Cal[Ref_Bac[ref]][har];    //-ref
                     //cal correlator <q(eta)q(ref)q*(-ref)*q<-eta>>
-                    q[11] = q[7]*q[9]*TComplex::Conjugate(q[8]*q[10]);
-                    hfg_4q[tp][det0][det1][har][0] ->Fill( cenbin, q[11].Re() );
-                    hfg_4q[tp][det0][det1][har][1] ->Fill( cenbin, q[11].Im() );
+                    q[12] = q[8]*q[10]*TComplex::Conjugate(q[9]*q[11]);
+                    hbg_4q_trk[tp][cenbin][det1][har][0] ->Fill( det1, q[12].Re() );
+                    hbg_4q_trk[tp][cenbin][det1][har][1] ->Fill( det1, q[12].Im() );
                     //cal correlator <q(eta)q*(-ref)><q(ref)*q<-eta>>
-                    q[12] = q[7]*TComplex::Conjugate(q[10]);
-                    q[13] = q[9]*TComplex::Conjugate(q[8]);
-                    hfg_4q0[tp][det0][det1][har][0] ->Fill(cenbin, q[12].Re());
-                    hfg_4q0[tp][det0][det1][har][1] ->Fill(cenbin, q[12].Im());
-                    hfg_4q1[tp][det0][det1][har][0] ->Fill(cenbin, q[13].Re());
-                    hfg_4q1[tp][det0][det1][har][1] ->Fill(cenbin, q[13].Im());
+                    q[13] = q[8]*TComplex::Conjugate(q[11]);
+                    q[14] = q[10]*TComplex::Conjugate(q[9]);
+                    hbg_4q0_trk[tp][cenbin][det1][har][0] ->Fill(det1, q[13].Re());
+                    hbg_4q0_trk[tp][cenbin][det1][har][1] ->Fill(det1, q[13].Im());
+                    hbg_4q1_trk[tp][cenbin][det1][har][0] ->Fill(det1, q[14].Re());
+                    hbg_4q1_trk[tp][cenbin][det1][har][1] ->Fill(det1, q[14].Im());
 
                 }
             }
         }
-*/
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int tp=0; tp<NTYPE; tp++){
-                    q[14] = Q_Trk[tp][Trk_For[det1]][har]; //+eta
-                    q[15] = Q_Trk[tp][Trk_Bac[det1]][har]; //-eta
-                    q[16] = Q_Cal[ Ref_For[det0] ][har];   //+ref
-                    q[17] = Q_Cal[ Ref_Bac[det0] ][har];   //-ref
 
-                    q[18] = q[15]*TComplex::Conjugate(q[16]); //numerator
-                    q[19] = q[14]*TComplex::Conjugate(q[16]);
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int det1=0; det1<HALF_CAL; det1++){
+                q[15] = Q_Cal[Cal_For[det1]][har];  //+eta
+                q[16] = Q_Cal[Cal_Bac[det1]][har];  //-eta
+                q[17] = Q_Cal[Ref_For[det1]][har];  //+ref
+                q[18] = Q_Cal[Ref_Bac[det1]][har];  //-ref
+                q[19] = q[15]*q[17]*TComplex::Conjugate(q[16]*q[18]);
+                hbg_4q_cal[cenbin][ref][har][0] ->Fill(det1, q[19].Re());
+                hbg_4q_cal[cenbin][ref][har][1] ->Fill(det1, q[19].Im());
 
-                    q[20] = q[14]*TComplex::Conjugate(q[17]); //numerator
-                    q[21] = q[15]*TComplex::Conjugate(q[17]);
+                //cal correlator <q(eta)q*(-ref)><q(ref)*q<-eta>>
+                q[20] = q[15]*TComplex::Conjugate(q[18]);
+                q[21] = q[17]*TComplex::Conjugate(q[16]);
 
-                    hfg_cms_0[tp][det0][det1][har][0] ->Fill(cenbin, q[18].Re());
-                    hfg_cms_0[tp][det0][det1][har][1] ->Fill(cenbin, q[18].Im());
-                    hfg_cms_1[tp][det0][det1][har][0] ->Fill(cenbin, q[19].Re());
-                    hfg_cms_1[tp][det0][det1][har][1] ->Fill(cenbin, q[19].Im());
+                hbg_4q0_cal[cenbin][ref][har][0] ->Fill(det1, q[20].Re());
+                hbg_4q0_cal[cenbin][ref][har][1] ->Fill(det1, q[20].Im());
+                hbg_4q1_cal[cenbin][ref][har][0] ->Fill(det1, q[21].Re());
+                hbg_4q1_cal[cenbin][ref][har][1] ->Fill(det1, q[21].Im());
 
-                    if(addstat==1){
-                    hfg_cms_0[tp][det0][det1][har][0] ->Fill(cenbin, q[20].Re());
-                    hfg_cms_0[tp][det0][det1][har][1] ->Fill(cenbin, q[20].Im());
-                    hfg_cms_1[tp][det0][det1][har][0] ->Fill(cenbin, q[21].Re());                   
-                    hfg_cms_1[tp][det0][det1][har][1] ->Fill(cenbin, q[21].Im());  
-                    }
-                    //cout<<q[17].Im()<<"  "<<q[17].Re()<< " "<<cenbin<<endl;
-                    //cout<<q[17].Im()<<endl;
-
-                }       
             }
         }
 
@@ -666,81 +365,76 @@ bool flowAsyTwistATLAS::FillBackground( EVENT_PTR evt0, EVENT_PTR evt1,EVENT_PTR
     // evt0: q(eta), evt1: q(-eta), evt2: q(ref), evt3: q(-ref)  
 
     for(int har=0; har<NHAR; har++){
-        //calc <q(ref)q*(ref)>  
-    /*
-        for(int det0=0; det0<REF_FCAL; det0++){
-            q[0] = Q_Cal[2][ Ref_For[det0]][har];
-            q[1] = Q_Cal[3][ Ref_Bac[det0]][har];
-            q[3] = q[0]*TComplex::Conjugate(q[1]);
-            hbg_ref[det0][har][0] ->Fill( cenbin, q[3].Re());
-            hbg_ref[det0][har][1] ->Fill( cenbin, q[3].Im());
-        }   
 
+        for(int ref=0; ref<REF_FCAL; ref++){
+            q[0] = Q_Cal[2][ Ref_For[ref]][har]; //+ ref
+            q[1] = Q_Cal[3][ Ref_Bac[ref]][har]; //- ref
+            q[2] = q[0]*TComplex::Conjugate(q[1]);
+            hfg_ref[cenbin][har][0] ->Fill( ref, q[2].Re());
+            hfg_ref[cenbin][har][1] ->Fill( ref, q[2].Im());
+        }   
         //calc <q(eta)q*(eta)>
         for(int tp=0; tp<NTYPE; tp++){
             for(int det1=0; det1<HALF_TRK; det1++){
-                q[4] = Q_Trk[0][tp][Trk_For[det1]][har];
-                q[5] = Q_Trk[1][tp][Trk_Bac[det1]][har];
-                q[6] = q[4]*TComplex::Conjugate(q[5]);
-                hbg_det[tp][det1][har][0] ->Fill( cenbin, q[6].Re());
-                hbg_det[tp][det1][har][1] ->Fill( cenbin, q[6].Im());
+                q[3] = Q_Trk[0][tp][Trk_For[det1]][har]; //+eta
+                q[4] = Q_Trk[1][tp][Trk_Bac[det1]][har]; //-eta
+                q[5] = q[4]*TComplex::Conjugate(q[5]);
+                hfg_det_trk[tp][cenbin][har][0] ->Fill( det1, q[5].Re());
+                hfg_det_trk[tp][cenbin][har][1] ->Fill( det1, q[5].Im());
             }   
         }
 
+        for(int det1=0; det1<HALF_CAL; det1++){
+            q[6] = Q_Cal[0][Cal_For[det1]][har];
+            q[7] = Q_Cal[1][Cal_Bac[det1]][har];
+            q[8] = q[6]*TComplex::Conjugate(q[7]);
+            hfg_det_cal[cenbin][har][0] ->Fill(det1, q[8].Re());
+            hfg_det_cal[cenbin][har][1] ->Fill(det1, q[8].Im());
+        }
+
         //calc 4 q correlator
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int tp=0; tp<NTYPE; tp++){ 
-                    q[7]  = Q_Trk[0][tp][Trk_For[det1]][har];  //+eta
-                    q[8]  = Q_Trk[1][tp][Trk_Bac[det1]][har]; // -eta
-                    q[9]  = Q_Cal[2][ Ref_For[det0]][har];    //+ref
-                    q[10] = Q_Cal[3][ Ref_Bac[det0]][har];    //-ref
+        for(int tp=0; tp<NTYPE; tp++){ 
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int det1=0; det1<HALF_TRK; det1++){
+                    q[8]   = Q_Trk[0][tp][Trk_For[det1]][har];  //+eta
+                    q[9]   = Q_Trk[1][tp][Trk_Bac[det1]][har]; // -eta
+                    q[10]  = Q_Cal[2][Ref_For[ref]][har];    //+ref
+                    q[11]  = Q_Cal[3][Ref_Bac[ref]][har];    //-ref
                     //cal correlator <q(eta)q(ref)q*(-ref)*q<-eta>>
-                    q[11] = q[7]*q[9]*TComplex::Conjugate(q[8]*q[10]);
-                    hbg_4q[tp][det0][det1][har][0] ->Fill( cenbin, q[11].Re() );
-                    hbg_4q[tp][det0][det1][har][1] ->Fill( cenbin, q[11].Im() );
+                    q[12] = q[8]*q[10]*TComplex::Conjugate(q[9]*q[11]);
+                    hbg_4q_trk[tp][cenbin][det1][har][0] ->Fill( det1, q[12].Re() );
+                    hbg_4q_trk[tp][cenbin][det1][har][1] ->Fill( det1, q[12].Im() );
                     //cal correlator <q(eta)q*(-ref)><q(ref)*q<-eta>>
-                    q[12] = q[7]*TComplex::Conjugate(q[10]);
-                    q[13] = q[9]*TComplex::Conjugate(q[8]);
-                    hbg_4q0[tp][det0][det1][har][0] ->Fill(cenbin, q[12].Re());
-                    hbg_4q0[tp][det0][det1][har][1] ->Fill(cenbin, q[12].Im());
-                    hbg_4q1[tp][det0][det1][har][0] ->Fill(cenbin, q[13].Re());
-                    hbg_4q1[tp][det0][det1][har][1] ->Fill(cenbin, q[13].Im());
+                    q[13] = q[8]*TComplex::Conjugate(q[11]);
+                    q[14] = q[10]*TComplex::Conjugate(q[9]);
+                    hbg_4q0_trk[tp][cenbin][det1][har][0] ->Fill(det1, q[13].Re());
+                    hbg_4q0_trk[tp][cenbin][det1][har][1] ->Fill(det1, q[13].Im());
+                    hbg_4q1_trk[tp][cenbin][det1][har][0] ->Fill(det1, q[14].Re());
+                    hbg_4q1_trk[tp][cenbin][det1][har][1] ->Fill(det1, q[14].Im());
 
                 }
             }
         }
-*/
-        for(int det0=0; det0<REF_FCAL; det0++){
-            for(int det1=0; det1<HALF_TRK; det1++){
-                for(int tp=0; tp<NTYPE; tp++){
-                    q[14] = Q_Trk[0][tp][Trk_For[det1]][har];  //+eta
-                    q[15] = Q_Trk[0][tp][Trk_Bac[det1]][har];  //-eta
-                    q[16] = Q_Cal[1][ Ref_For[det0] ][har];    //+ref
-                    q[17] = Q_Cal[1][ Ref_Bac[det0] ][har];    //-ref
 
-                    q[18] = q[15]*TComplex::Conjugate(q[16]); //numerator
-                    q[19] = q[14]*TComplex::Conjugate(q[16]);
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int det1=0; det1<HALF_CAL; det1++){
+                q[15] = Q_Cal[0][Cal_For[det1]][har];  //+eta
+                q[16] = Q_Cal[1][Cal_Bac[det1]][har];  //-eta
+                q[17] = Q_Cal[2][Ref_For[det1]][har];  //+ref
+                q[18] = Q_Cal[3][Ref_Bac[det1]][har];  //-ref
+                q[19] = q[15]*q[17]*TComplex::Conjugate(q[16]*q[18]);
+                hbg_4q_cal[cenbin][ref][har][0] ->Fill(det1, q[19].Re());
+                hbg_4q_cal[cenbin][ref][har][1] ->Fill(det1, q[19].Im());
 
-                    q[20] = q[14]*TComplex::Conjugate(q[17]);  //numerator
-                    q[21] = q[15]*TComplex::Conjugate(q[17]);
+                //cal correlator <q(eta)q*(-ref)><q(ref)*q<-eta>>
+                q[20] = q[15]*TComplex::Conjugate(q[18]);
+                q[21] = q[17]*TComplex::Conjugate(q[16]);
 
-                    hbg_cms_0[tp][det0][det1][har][0] ->Fill(cenbin, q[18].Re());
-                    hbg_cms_0[tp][det0][det1][har][1] ->Fill(cenbin, q[18].Im());
-                    hbg_cms_1[tp][det0][det1][har][0] ->Fill(cenbin, q[19].Re());
-                    hbg_cms_1[tp][det0][det1][har][1] ->Fill(cenbin, q[19].Im());
-                   
-                    if(addstat==1){
-                    hbg_cms_0[tp][det0][det1][har][0] ->Fill(cenbin, q[20].Re());
-                    hbg_cms_0[tp][det0][det1][har][1] ->Fill(cenbin, q[20].Im());
-                    hbg_cms_1[tp][det0][det1][har][0] ->Fill(cenbin, q[21].Re());
-                    hbg_cms_1[tp][det0][det1][har][1] ->Fill(cenbin, q[21].Im());  
-                    }
-                    //cout<<q[17].Im()<<"  "<<q[17].Re()<< " "<<cenbin<<endl;
-                    //cout<<q[17].Im()<<endl;
+                hbg_4q0_cal[cenbin][ref][har][0] ->Fill(det1, q[20].Re());
+                hbg_4q0_cal[cenbin][ref][har][1] ->Fill(det1, q[20].Im());
+                hbg_4q1_cal[cenbin][ref][har][0] ->Fill(det1, q[21].Re());
+                hbg_4q1_cal[cenbin][ref][har][1] ->Fill(det1, q[21].Im());
 
-                    
-                }       
             }
         }
     }//end of harmonics
@@ -776,5 +470,329 @@ int flowAsyTwistATLAS::get_zPool(float z){
     bin = (z+100.0)/Zbin_Size;  // pools
     if(bin<0||bin>=nz) return -1;
     return bin;
+}
+
+//general rule, det0 for Cal, det1 for Trk 
+void flowAsyTwistATLAS::Init_histos(){
+
+    fout = new TFile(outfile.c_str(), "recreate");
+    char name[200];
+
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int har=0; har<NHAR; har++){
+                    for(int re=0; re<2; re++){
+                        sprintf(name,"hfg_4q_trk_itp%d_ic%d_ref%d_har%d_re%d", itp, ic, ref, har, re);
+                        hfg_4q_trk[itp][ic][ref][har][ref] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                        hfg_4q_trk[itp][ic][ref][har][ref] -> Sumw2();
+                    }
+                }
+            }
+        }
+    }
+
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int har=0; har<NHAR; har++){
+                    for(int re=0; re<2; re++){
+                        sprintf(name,"hfg_4q0_trk_itp%d_ic%d_ref%d_har%d_re%d", itp, ic, ref, har, re);
+                        hfg_4q0_trk[itp][ic][ref][har][ref] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                        hfg_4q0_trk[itp][ic][ref][har][ref] -> Sumw2();
+                    }
+                }
+            }
+        }
+    }
+
+
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int har=0; har<NHAR; har++){
+                    for(int re=0; re<2; re++){
+                        sprintf(name,"hfg_4q1_trk_itp%d_ic%d_ref%d_har%d_re%d", itp, ic, ref, har, re);
+                        hfg_4q1_trk[itp][ic][ref][har][ref] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                        hfg_4q1_trk[itp][ic][ref][har][ref] -> Sumw2();
+                    }
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name,"hfg_4q_cal_ic%d_ref%d_har%d_re%d", ic, ref, har, re);
+                    hfg_4q_cal[ic][ref][har][re] =  new TProfile(name, name, HALF_CAL, 0-0.5, HALF_CAL-0.5);
+                    hfg_4q_cal[ic][ref][har][re] -> Sumw2();
+
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name,"hfg_4q0_cal_ic%d_ref%d_har%d_re%d", ic, ref, har, re);
+                    hfg_4q0_cal[ic][ref][har][re] =  new TProfile(name, name, HALF_CAL, 0-0.5, HALF_CAL-0.5);
+                    hfg_4q0_cal[ic][ref][har][re] -> Sumw2();
+
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name,"hfg_4q1_cal_ic%d_ref%d_har%d_re%d", ic, ref, har, re);
+                    hfg_4q1_cal[ic][ref][har][re] =  new TProfile(name, name, HALF_CAL, 0-0.5, HALF_CAL-0.5);
+                    hfg_4q1_cal[ic][ref][har][re] -> Sumw2();
+
+                }
+            }
+        }
+    }
+
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int har=0; har<NHAR; har++){
+            for(int re=0; re<2; re++){
+                sprintf(name, "hfg_ref_ic%d_har%d_re%d", ic, har, re);
+                hfg_ref[ic][har][re] = new TProfile(name, name, REF_FCAL, 0-0.5, REF_FCAL-0.5);
+                hfg_ref[ic][har][re] ->Sumw2();
+            }
+        }
+    }
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name, "hfg_det_trk_itp%d_ic%d_har%d_re%d", itp, ic, har, re);
+                    hfg_det_trk[itp][ic][har][re] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                    hfg_det_trk[itp][ic][har][re] ->Sumw2();
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int har=0; har<NHAR; har++){
+            for(int re=0; re<2; re++){
+                sprintf(name, "hfg_det_cal_ic%d_har%d_re%d", ic, har, re);
+                hfg_det_cal[ic][har][re] = new TProfile(name, name, 0-0.5, HALF_CAL-0.5);
+                hfg_det_cal[ic][har][re] ->Sumw2();
+            }
+        }
+    }
+
+    //*******begin define bkg
+
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int har=0; har<NHAR; har++){
+                    for(int re=0; re<2; re++){
+                        sprintf(name,"hbg_4q_trk_itp%d_ic%d_ref%d_har%d_re%d", itp, ic, ref, har, re);
+                        hbg_4q_trk[itp][ic][ref][har][ref] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                        hbg_4q_trk[itp][ic][ref][har][ref] -> Sumw2();
+                    }
+                }
+            }
+        }
+    }
+
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int har=0; har<NHAR; har++){
+                    for(int re=0; re<2; re++){
+                        sprintf(name,"hbg_4q0_trk_itp%d_ic%d_ref%d_har%d_re%d", itp, ic, ref, har, re);
+                        hbg_4q0_trk[itp][ic][ref][har][ref] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                        hbg_4q0_trk[itp][ic][ref][har][ref] -> Sumw2();
+                    }
+                }
+            }
+        }
+    }
+
+
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int ref=0; ref<REF_FCAL; ref++){
+                for(int har=0; har<NHAR; har++){
+                    for(int re=0; re<2; re++){
+                        sprintf(name,"hbg_4q1_trk_itp%d_ic%d_ref%d_har%d_re%d", itp, ic, ref, har, re);
+                        hbg_4q1_trk[itp][ic][ref][har][ref] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                        hbg_4q1_trk[itp][ic][ref][har][ref] -> Sumw2();
+                    }
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name,"hbg_4q_cal_ic%d_ref%d_har%d_re%d", ic, ref, har, re);
+                    hbg_4q_cal[ic][ref][har][re] =  new TProfile(name, name, HALF_CAL, 0-0.5, HALF_CAL-0.5);
+                    hbg_4q_cal[ic][ref][har][re] -> Sumw2();
+
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name,"hbg_4q0_cal_ic%d_ref%d_har%d_re%d", ic, ref, har, re);
+                    hbg_4q0_cal[ic][ref][har][re] =  new TProfile(name, name, HALF_CAL, 0-0.5, HALF_CAL-0.5);
+                    hbg_4q0_cal[ic][ref][har][re] -> Sumw2();
+
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int ref=0; ref<REF_FCAL; ref++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name,"hbg_4q1_cal_ic%d_ref%d_har%d_re%d", ic, ref, har, re);
+                    hbg_4q1_cal[ic][ref][har][re] =  new TProfile(name, name, HALF_CAL, 0-0.5, HALF_CAL-0.5);
+                    hbg_4q1_cal[ic][ref][har][re] -> Sumw2();
+
+                }
+            }
+        }
+    }
+
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int har=0; har<NHAR; har++){
+            for(int re=0; re<2; re++){
+                sprintf(name, "hbg_ref_ic%d_har%d_re%d", ic, har, re);
+                hbg_ref[ic][har][re] = new TProfile(name, name, REF_FCAL, 0-0.5, REF_FCAL-0.5);
+                hbg_ref[ic][har][re] ->Sumw2();
+            }
+        }
+    }
+    for(int itp=0; itp<NTYPE; itp++){
+        for(int ic=0; ic<NCENT; ic++){
+            for(int har=0; har<NHAR; har++){
+                for(int re=0; re<2; re++){
+                    sprintf(name, "hbg_det_trk_itp%d_ic%d_har%d_re%d", itp, ic, har, re);
+                    hbg_det_trk[itp][ic][har][re] = new TProfile(name, name, HALF_TRK, 0-0.5, HALF_TRK-0.5);
+                    hbg_det_trk[itp][ic][har][re] ->Sumw2();
+                }
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int har=0; har<NHAR; har++){
+            for(int re=0; re<2; re++){
+                sprintf(name, "hbg_det_cal_ic%d_har%d_re%d", ic, har, re);
+                hbg_det_cal[ic][har][re] = new TProfile(name, name, 0-0.5, HALF_CAL-0.5);
+            }
+        }
+    }
+
+    sprintf(name, "hbad1");
+    hbad1 = new TH1D(name, name, 100, 0-0.5, 100-0.5);
+    hbad1->Sumw2();
+
+    for(int det=0; det<NDET_CAL; det++){
+        sprintf(name,"hbad2_det%d", det);
+        hbad2[det] = new TH1D(name, name, 100, 0-0.5, 100-0.5);
+        hbad2[det]->Sumw2();
+    }
+
+    for(int det=0; det<NDET_CAL; det++){
+        sprintf(name,"hbad2Cal_det%d", det);
+        hbad2Cal[det] = new TH1D(name, name, 50, -100, 0);
+        hbad2Cal[det]->Sumw2();
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        sprintf(name, "track_check_ic_%d",ic);
+        track_check[ic] = new TH1D(name, name, 500, 0, 4000);
+        track_check[ic] ->Sumw2();
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        sprintf(name, "trackEt_check_ic_%d",ic);
+        trackEt_check[ic] = new TH2D(name, name, 40, 0, 20, 50, 0, 5);
+        trackEt_check[ic] ->Sumw2();
+    }
+
+
+    hcentbin = new TH1D("hcentbin", "hcentbin", NCENT, 0-0.5, NCENT-0.5);
+    hcentbin ->Sumw2();
+    hcentrality = new TH1D("hcentrality", "hcentrality", 100, 0, 100);
+    hcentrality ->Sumw2();
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int det1=0; det1<HALF_TRK; det1++){
+            for(int ih=0; ih<NHAR; ih++){
+                sprintf(name, "hq_trk_ic%d_det%d_ih%d",ic, det1, ih);
+                hq_trk[ic][det1][ih] = new TH1D(name, name, 200, 0, 100);
+                hq_trk[ic][det1][ih] ->Sumw2();
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int det0=0; det0<REF_FCAL; det0++){
+            for(int ih=0; ih<NHAR; ih++){
+                sprintf(name, "hq_cal_ic%d_det%d_ih%d", ic, det0, ih);
+                hq_cal[ic][det0][ih] = new TH1D(name, name, 200, 0, 100);
+                hq_cal[ic][det0][ih] ->Sumw2();
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int det1=0; det1<HALF_TRK; det1++){
+            for(int ih=0; ih<NHAR; ih++){
+                sprintf(name, "hpsi_trk_ic%d_det%d_ih%d",ic, det1, ih);
+                hpsi_trk[ic][det1][ih] = new TH1D(name, name, 50, -PI, PI);
+                hpsi_trk[ic][det1][ih] ->Sumw2();
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        for(int det0=0; det0<REF_FCAL; det0++){
+            for(int ih=0; ih<NHAR; ih++){
+                sprintf(name, "hpsi_cal_ic%d_det%d_ih%d", ic, det0, ih);
+                hpsi_cal[ic][det0][ih] = new TH1D(name, name, 50, -PI, PI);
+                hpsi_cal[ic][det0][ih] ->Sumw2();
+            }
+        }
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        sprintf(name, "hvtx_z_ic%d", ic);
+        hvtx_z[ic] = new TH1D(name, name, 200, -100, 100);
+        hvtx_z[ic] ->Sumw2();
+    }
+
+    for(int ic=0; ic<NCENT; ic++){
+        sprintf(name, "hvtx_zbin_ic%d", ic);
+        hvtx_zbin[ic] = new TH1D(name, name, 200,0, 100);
+        hvtx_zbin[ic] ->Sumw2();
+    }
+
+    cout<<"Finish Initializing histograms"<<endl;
 }
 
